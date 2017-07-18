@@ -2,7 +2,20 @@
 {% block maincontent %}
     {% for post in news_list %}
         <img src="/media/{{post.cover}}" alt=""width="100px" height="100px"/>
+        {{post.body|striptags|safe|truncatechars:100|linebreaks}}
         <h2><a href="{% url 'NewsPush:news_content_page' post.id %}"> {{ post.title }}</a>></h2>
         <br/>
     {% endfor %}
+    <h4>现在时间：{{ now }}</h4>
+    <p>
+  {# topics.paginator.page_range 这个函数返回包含一个所有页码数的 range 对象 #}
+  {# 即 range(1, topics.paginator.num_pages + 1) #}
+  {% for page_number in news_list.paginator.page_range %}
+      {% ifequal page_number  news_list.number %}
+        {{ page_number }}
+    {% else %}
+      <a href="?page={{ page_number }}">{{ page_number }}</a>
+    {% endifequal %}
+  {% endfor %}
+    </p>
 {% endblock %}

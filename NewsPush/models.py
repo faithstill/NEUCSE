@@ -8,8 +8,8 @@ from ckeditor.fields import RichTextField
 class NewsPost(models.Model):
     title = models.CharField(max_length=100)
     # body = models.TextField()
-    author =models.CharField(max_length=50)
-    cover = models.ImageField(upload_to='Img')
+    author =models.CharField(max_length=50,blank = True)
+    cover = models.ImageField(upload_to='Img',null=True,blank=True)
     body = RichTextField(blank=True, null=True, verbose_name="Content")
     timestamp = models.DateTimeField()
 
